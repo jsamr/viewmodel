@@ -262,18 +262,20 @@ class ViewModel
         dependenciesDelayed[p].changed() if dependenciesDelayed[p]
       @
 
-    @reset = ->
+    @reset = (resetValues=initialValues) ->
+
       for p in self._vm_properties
-        if initialValues[p] instanceof Array
-          values[p] = new ReactiveArray initialValues[p]
-          valuesDelayed[p] = new ReactiveArray initialValues[p]
+        if resetValues[p] instanceof Array
+          values[p] = new ReactiveArray resetValues[p]
+          valuesDelayed[p] = new ReactiveArray resetValues[p]
         else
-          values[p] = initialValues[p]
-          valuesDelayed[p] = initialValues[p]
+          values[p] = resetValues[p]
+          valuesDelayed[p] = resetValues[p]
 
       for p of values
         dependencies[p].changed()
         dependenciesDelayed[p].changed() if dependenciesDelayed[p]
+
       @
 
     if @_vm_hasId
